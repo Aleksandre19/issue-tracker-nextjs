@@ -47,6 +47,7 @@ const NewIssuePage = () => {
           <Callout.Text color='red'>{error}</Callout.Text>
         </Callout.Root>
       )}
+
       <form className='space-y-3' onSubmit={onSubmit}>
         <TextField.Root placeholder='Title' {...register('title')} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
