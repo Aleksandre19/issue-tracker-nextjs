@@ -1,4 +1,10 @@
 'use client';
+import classnames from 'classnames';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { AiFillBug } from 'react-icons/ai';
+import Skeleton from './components/Skeleton';
 import {
   Avatar,
   Box,
@@ -7,12 +13,6 @@ import {
   Flex,
   Text,
 } from '@radix-ui/themes';
-import classnames from 'classnames';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { AiFillBug } from 'react-icons/ai';
-import Skeleton from './components/Skeleton';
 
 const NavBar = () => {
   return (
@@ -35,6 +35,8 @@ const NavBar = () => {
 };
 
 const NavLinks = () => {
+  const currentPath = usePathname();
+
   const links = [
     { label: 'Dashboard', href: '/' },
     { label: 'Issues', href: '/issues/list' },
@@ -47,7 +49,7 @@ const NavLinks = () => {
           <Link
             className={classnames({
               'nav-link': true,
-              '!text-zinc-900': link.href === usePathname(),
+              '!text-zinc-900': link.href === currentPath,
             })}
             href={link.href}
           >
