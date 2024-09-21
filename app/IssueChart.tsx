@@ -27,8 +27,8 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
       <ResponsiveContainer width='100%' height={300}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='label' />
-          <YAxis />
+          <CustomXAxis dataKey='label' />
+          <CustomYAxis />
           <Bar
             dataKey='value'
             barSize={60}
@@ -39,5 +39,13 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
     </Card>
   );
 };
+
+function CustomXAxis({ dataKey = 'label', ...props }) {
+  return <XAxis dataKey={dataKey} {...props} />;
+}
+
+function CustomYAxis({ dataKey = 'label', ...props }) {
+  return <YAxis dataKey={dataKey} {...props} />;
+}
 
 export default IssueChart;
