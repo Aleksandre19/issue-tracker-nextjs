@@ -21,7 +21,7 @@ export async function PATCH(
     return NextResponse.json(validation.error.format(), { status: 400 });
 
   // Destructure the issue body.
-  const { title, description, assignedToUserId } = body;
+  const { title, description, assignedToUserId, status } = body;
 
   // Check if the user exists in the body and validate it.
   if (assignedToUserId) {
@@ -49,6 +49,7 @@ export async function PATCH(
       title,
       description,
       assignedToUserId,
+      status,
     },
   });
 
