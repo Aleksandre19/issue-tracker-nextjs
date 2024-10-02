@@ -10,5 +10,5 @@ export const userStatus = async () => {
   const session = await getServerSession(AuthOptions);
   const useSession = session ? true : false;
 
-  return useSession;
+  return { useSession, session };
 };

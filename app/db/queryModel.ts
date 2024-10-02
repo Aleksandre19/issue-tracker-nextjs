@@ -40,9 +40,16 @@ export const query = async <T>(
   operation: ModelOperation,
   params: any = {}
 ): Promise<T> => {
-  const useSession = await userStatus();
+  // Check if the user is authenticated
+  const { useSession, session } = await userStatus();
+
   // Determine the model name based on the useSession flag
   const modelName = useSession ? 'issueSession' : 'issue';
+
+  // Add the `where` parameter if it doesn't exist and operation is not 'create'
+  if (modelName === 'issueSession' && operation != 'create')
+    if (!params.where)
+      params = { ...params, where: { issueUserEmail: session?.user?.email } };
 
   // Call the queryModel function with the appropriate model name and operation
   return queryModel<T>(modelName, operation, params);
