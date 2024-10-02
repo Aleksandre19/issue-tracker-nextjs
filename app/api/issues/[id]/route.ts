@@ -1,6 +1,8 @@
 import AuthOptions from '@/app/auth/AuthOptions';
+import { query } from '@/app/db/queryModel';
 import { patchIssueSchema } from '@/app/validationSchemas';
 import prisma from '@/prisma/client';
+import { Issue } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -34,7 +36,7 @@ export async function PATCH(
   }
 
   // Fetch the issue.
-  const issue = await prisma.issue.findUnique({
+  const issue = await query<Issue>('findUnique', {
     where: { id: parseInt(params.id) },
   });
 
@@ -43,7 +45,7 @@ export async function PATCH(
     return NextResponse.json({ error: 'Invalid issue' }, { status: 404 });
 
   // Update the issue.
-  const updatedIssue = await prisma.issue.update({
+  const updatedIssue = await query<Issue>('update', {
     where: { id: issue.id },
     data: {
       title,
@@ -64,14 +66,14 @@ export async function DELETE(
   const session = await getServerSession(AuthOptions);
   if (!session) return Response.json({}, { status: 401 });
 
-  const issue = await prisma.issue.findUnique({
+  const issue = await query<Issue>('findUnique', {
     where: { id: parseInt(params.id) },
   });
 
   if (!issue)
     return NextResponse.json({ error: 'Invalid issue' }, { status: 404 });
 
-  await prisma.issue.delete({
+  await query<Issue>('delete', {
     where: { id: issue.id },
   });
 

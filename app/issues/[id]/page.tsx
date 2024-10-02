@@ -8,13 +8,17 @@ import { getServerSession } from 'next-auth';
 import AuthOptions from '@/app/auth/AuthOptions';
 import AssigneeSelect from './AssigneeSelect';
 import { cache } from 'react';
+import { query } from '@/app/db/queryModel';
+import { Issue } from '@prisma/client';
 
 interface Props {
   params: { id: string };
 }
 
 const fetchIssue = cache((issueId: number) =>
-  prisma.issue.findUnique({ where: { id: issueId } })
+  query<Issue>('findUnique', {
+    where: { id: issueId },
+  })
 );
 
 const IssueDetailpage = async ({ params }: Props) => {

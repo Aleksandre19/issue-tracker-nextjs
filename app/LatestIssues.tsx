@@ -1,15 +1,12 @@
 import { Avatar, Card, Flex, Heading, Table } from '@radix-ui/themes';
 import NextLink from 'next/link';
 import { IssueStatusBadge } from './components';
-import { getIssues } from './db/queryModel';
+import { query } from './db/queryModel';
 import { IssueType, userStatus } from './utils/userStatus';
 
 const LatestIssues = async () => {
-  // Check if the user is logged in or not
-  const useSession = await userStatus();
-
   // Fetch the latest issues
-  const issues = await getIssues<IssueType[]>(useSession, 'findMany', {
+  const issues = await query<IssueType[]>('findMany', {
     orderBy: { createdAt: 'desc' },
     take: 5,
     include: {

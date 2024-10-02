@@ -1,8 +1,15 @@
 import prisma from '@/prisma/client';
+import { userStatus } from '../utils/userStatus';
 
 // Define a type for the model names and operations
 type ModelName = 'issue' | 'issueSession';
-type ModelOperation = 'findMany' | 'create' | 'update' | 'delete';
+type ModelOperation =
+  | 'findMany'
+  | 'create'
+  | 'update'
+  | 'delete'
+  | 'count'
+  | 'findUnique';
 
 const queryModel = async <T>(
   modelName: ModelName,
@@ -29,11 +36,11 @@ const queryModel = async <T>(
 };
 
 // GET Issues.
-export const getIssues = async <T>(
-  useSession: boolean,
+export const query = async <T>(
   operation: ModelOperation,
   params: any = {}
 ): Promise<T> => {
+  const useSession = await userStatus();
   // Determine the model name based on the useSession flag
   const modelName = useSession ? 'issueSession' : 'issue';
 

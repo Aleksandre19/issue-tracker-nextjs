@@ -4,6 +4,8 @@ import prisma from '@/prisma/client';
 import { issueSchema } from '@/app/validationSchemas';
 import { getServerSession } from 'next-auth';
 import AuthOptions from '@/app/auth/AuthOptions';
+import { query } from '@/app/db/queryModel';
+import { Issue } from '@prisma/client';
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession(AuthOptions);
@@ -15,7 +17,7 @@ export async function POST(request: NextRequest) {
   if (!validation.success)
     return Response.json(validation.error.errors, { status: 400 });
 
-  const newIssue = await prisma.issue.create({
+  const newIssue = await query<Issue>('create', {
     data: {
       title: body.title,
       description: body.description,
