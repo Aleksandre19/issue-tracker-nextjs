@@ -1,18 +1,12 @@
-import { Issue, User } from '@prisma/client';
 import { Avatar, Card, Flex, Heading, Table } from '@radix-ui/themes';
-import { getServerSession } from 'next-auth';
 import NextLink from 'next/link';
-import AuthOptions from './auth/AuthOptions';
 import { IssueStatusBadge } from './components';
 import { getIssues } from './db/queryModel';
+import { IssueType, userStatus } from './utils/userStatus';
 
 const LatestIssues = async () => {
-  // Define a type for the IssueType
-  type IssueType = Issue & { assignedToUser: User | null };
-
-  // Fetch the session and determine whether to use session or not
-  const session = await getServerSession(AuthOptions);
-  const useSession = session ? true : false;
+  // Check if the user is logged in or not
+  const useSession = await userStatus();
 
   // Fetch the latest issues
   const issues = await getIssues<IssueType[]>(useSession, 'findMany', {
