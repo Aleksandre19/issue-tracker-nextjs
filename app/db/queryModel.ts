@@ -45,11 +45,15 @@ export const query = async <T>(
 
   // Determine the model name based on the useSession flag
   const modelName = useSession ? 'issueSession' : 'issue';
-
   // Add the `where` parameter if it doesn't exist and operation is not 'create'
   if (modelName === 'issueSession' && operation != 'create')
     if (!params.where)
       params = { ...params, where: { issueUserEmail: session?.user?.email } };
+    else
+      params = {
+        ...params,
+        where: { ...params.where, issueUserEmail: session?.user?.email },
+      };
 
   // Call the queryModel function with the appropriate model name and operation
   return queryModel<T>(modelName, operation, params);
