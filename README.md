@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align='center'>Issue Trucker</h1>
 
-## Getting Started
+This is a Full Stack project, built with Next.js. It is a simple issue tracker which implements CRUD operations. For user authentication, it uses NextAuth.js with Google Provider. It has pagination, sorting, and filtering. Users can also change the status of an issue and assign it to another user. The application uses Tailwind CSS and Radix UI for the user interface and MySQL for the database. The project is deployed on Vercel.
 
-First, run the development server:
+[Demo](https://issue-tracker-beta-six.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Running the Project Locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Follow these steps to set up and run the project on your local machine:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   ```
 
-## Learn More
+2. **Install dependencies**
 
-To learn more about Next.js, take a look at the following resources:
+   ```
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   - Create a `.env` file in the root directory
+   - Add the following variables (replace with your actual values):
+     ```
+     DATABASE_URL="mysql://username:password@localhost:3306/your_database_name"
+     NEXTAUTH_URL="http://localhost:3000"
+     NEXTAUTH_SECRET="your-nextauth-secret"
+     GOOGLE_CLIENT_ID="your-google-client-id"
+     GOOGLE_CLIENT_SECRET="your-google-client-secret"
+     ```
 
-## Deploy on Vercel
+4. **Set up the database**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```
+   npx prisma generate
+   npx prisma db push
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. **Run the development server**
+
+   ```
+   npm run dev
+   ```
+
+6. **Open the application**
+   - Navigate to `http://localhost:3000` in your web browser
+
+##### Additional Notes
+
+- Ensure you have Node.js (version 14 or later) and npm installed on your machine.
+- For the Google authentication to work, you need to set up a Google Cloud project and obtain the necessary credentials.
+- Make sure you have MySQL installed and running on your local machine, or update the `DATABASE_URL` to point to your preferred database.
+
+If you encounter any issues during setup, please check the [Troubleshooting](#troubleshooting) section or open an issue on the GitHub repository.
+
+### Technologies used:
+
+- **[Next.js](https://nextjs.org/)**: React framework for building the full-stack application.
+- **[React](https://reactjs.org/)**: JavaScript library for building user interfaces.
+- **[TypeScript](https://www.typescriptlang.org/)**: Typed superset of JavaScript for improved development experience.
+- **[Prisma](https://www.prisma.io/)**: Next-generation ORM for Node.js and TypeScript.
+- **[NextAuth.js](https://next-auth.js.org/)**: Authentication solution for Next.js applications.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework for rapid UI development.
+- **[Radix UI](https://www.radix-ui.com/)**: Unstyled, accessible components for building high-quality design systems.
+- **[React Query](https://tanstack.com/query/latest)**: Data fetching and state management library for React applications.
+- **[Axios](https://axios-http.com/)**: Promise-based HTTP client for making API requests.
+- **[React Hook Form](https://react-hook-form.com/)**: Efficient, flexible and extensible forms with easy-to-use validation.
+- **[Zod](https://zod.dev/)**: TypeScript-first schema validation with static type inference.
+- **[React Hot Toast](https://react-hot-toast.com/)**: Lightweight toast notifications for React.
+- **[React Icons](https://react-icons.github.io/react-icons/)**: Popular icon packs as React components.
+- **[React Loading Skeleton](https://github.com/dvtng/react-loading-skeleton)**: Create animated loading skeletons for better user experience.
+- **[React Markdown](https://github.com/remarkjs/react-markdown)**: Markdown component for React.
+- **[React SimpleMDE Editor](https://github.com/RIP21/react-simplemde-editor)**: React component wrapper for SimpleMDE.
+- **[Recharts](https://recharts.org/)**: Composable charting library built on React components.
+- **[EasyMDE](https://github.com/Ionaru/easy-markdown-editor)**: Easy-to-use Markdown editor.
+- **[ESLint](https://eslint.org/)**: Linting utility for JavaScript and TypeScript.
+- **[PostCSS](https://postcss.org/)**: Tool for transforming CSS with JavaScript.
