@@ -44,6 +44,10 @@ const AuthOptions: NextAuthOptions = {
       return baseUrl;
     },
   },
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+  },
 };
 
 export default AuthOptions;
